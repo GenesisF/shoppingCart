@@ -17,16 +17,24 @@ export default class CartItems extends React.Component {
                 </div>
                 {this.props.cartItemsList.map((cartItem)=> <CartItemComponent 
                     product={cartItem.product.name}
-                    price={cartItem.product.priceInCents}
+                    price={this.inDollarsBitch(cartItem.product.priceInCents)}
                     quantity={cartItem.quantity}
                 />)}
             </div>
             <h2>Total:{this.props.cartItemsList.reduce((total, cartItem)=>{
                 total = total + cartItem.product.priceInCents * cartItem.quantity;
-                return total;
+                return this.inDollarsBitch(total);
             },0)}</h2>
           </div>
         )
+    }
+
+
+
+    inDollarsBitch(cents){
+
+        return `$ ${(cents/100).toFixed(2)}`;
+
     }
 
 }
